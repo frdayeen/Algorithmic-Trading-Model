@@ -1,2 +1,2 @@
-# Algorithmic-Trading-Model
-This demo project delves into the creation and implementation of a sophisticated machine learning model tailored specifically for algorithmic trading, leveraging vast amounts of historical and real-time data from the S&amp;P 500 stocks. 
+# Unsupervised Algorithmic Trading Model
+This demo project delves into the implementation of an unsupervised machine learning model for algorithmic trading, using data from the S&amp;P 500 stocks. 
