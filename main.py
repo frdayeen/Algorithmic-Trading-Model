@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick 
+from matplotlib.ticker import PercentFormatter
 import datetime as dt
 import yfinance as yf
 import os
@@ -70,4 +72,33 @@ for startDate in specific_dates.keys():
 
     portfolio_df = pd.concat([portfolio_df, equalReturn_df], axis=0)
 
-print(portfolio_df)
+# print(portfolio_df)
+    
+#compare with NASDAQ
+    
+qqq_df = yf.download(tickers='QQQ',
+                     start = '2021-01-01',
+                     end = '2023-03-01')
+
+qqq_ret = np.log(qqq_df['Adj Close']).diff().to_frame('Nasdaq_return')
+
+
+portfolio_df = portfolio_df.merge(qqq_ret,
+                                  left_index=True,
+                                  right_index=True)
+
+
+#plot the returns
+
+cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
+
+
+cumulative_return.plot(figsize=(6,4))
+
+plt.title('Return over time')
+
+plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1)) 
+
+plt.ylabel('Return')
+
+plt.show()
